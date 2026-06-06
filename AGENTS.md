@@ -1,30 +1,36 @@
-# Project Rules for grokdemo1
+# Project Rules for grokdemo1 (RecipePDF)
 
-This is a demo/sandbox project. Keep things simple, well-documented, and easy to run.
+RecipePDF is a native Windows desktop application for searching and browsing PDF cookbooks. It uses CustomTkinter + PyMuPDF + SQLite FTS5.
 
 ## General Guidelines
-- Prefer simple, readable code over clever abstractions.
-- Include a short README update or comment when adding significant features.
-- Use conventional commit style if/when committing (e.g. `feat: add X`, `fix: ...`).
-- Keep the project runnable with minimal or zero external dependencies where possible for demos.
-- When adding new tech (frameworks, languages), document how to run in README.
+- Keep the app fast, offline-first, and self-contained (single .exe build target via PyInstaller).
+- PDF processing and recipe detection heuristics are core — change them carefully and test with real cookbooks.
+- UI must stay responsive: long work (indexing, rendering) goes in background threads.
+- All user data (index, settings) lives in %LOCALAPPDATA%\RecipePDF or equivalent app data dir. Never write to source tree at runtime.
+- Prefer native Windows behaviors (os.startfile, file:// URIs with #page, taskbar integration).
 
-## Code Style
-- Use 2 spaces for indentation in JS/JSON/HTML.
-- Use 4 spaces in Python.
-- Meaningful variable names.
-- Add brief comments for non-obvious logic.
+## Code Style (Python)
+- 4-space indentation.
+- Type hints on public functions and important methods.
+- Clear separation: pdf_processor.py (fitz + rendering), indexer.py (scan + recipe splitting), db.py (SQLite + FTS), main.py (UI only).
+- Keep the three-panel layout (library | results | detail with preview + ingredients + instructions) stable unless a major redesign is planned.
+- Update README.md + BUILD.md when changing run/build steps or adding features.
 
-## Demo Focus
-- The project demonstrates Grok working on real tasks.
-- New features should be self-contained examples that can be shown quickly.
-- Prioritize interactive or visual demos (browser-based preferred for zero-install).
+## Development Workflow
+- Run from source: `python main.py` after `pip install -r requirements.txt`
+- Build the Windows .exe with `python build.py` (or the manual PyInstaller command in BUILD.md)
+- Test indexing + search on a variety of real PDF cookbooks (different layouts, 2-column, etc.)
+- When adding features (e.g. tags, shopping list, OCR for scans), add to the "Limitations & Roadmap" section.
 
-## GitHub / Remote
+## GitHub / Commits
 - Main branch is `main`.
-- Use the GitHub MCP tools (via Grok) or local git for changes when possible.
-- Keep the remote in sync with local work.
+- Use Grok + GitHub MCP tools for changes, reviews, and pushes when practical.
+- Conventional commits preferred.
 
-## When Using Subagents or Skills
-- For complex multi-step work, consider the bundled `implement`, `review`, `design` skills.
-- For exploration of the (small) codebase, the `explore` agent is useful.
+## When Using Grok Skills
+- For bigger changes, use the `design` skill first to produce a short plan, then `implement` + `review`.
+- The `explore` agent is useful to understand the current modules (main.py is large).
+
+## Testing Notes
+- No formal test suite yet — manual testing with real PDFs is required.
+- After changes to pdf_processor or indexer, re-index a couple of books and verify title/ingredient/instruction extraction quality.

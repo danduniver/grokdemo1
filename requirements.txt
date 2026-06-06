@@ -1,0 +1,11 @@
+# RecipePDF - PDF Cookbook Search Application
+# Core dependencies
+PyMuPDF>=1.24.0          # Excellent PDF text extraction + page rendering
+customtkinter>=5.2.2     # Modern beautiful Tkinter UI with dark theme
+Pillow>=10.3.0           # Image handling for rendered PDF pages
+
+# For building the Windows executable
+pyinstaller>=6.6.0
+
+# Optional but recommended for better fuzzy matching in future
+# rapidfuzz>=3.0.0
