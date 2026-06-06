@@ -1,0 +1,21 @@
+{
+  "name": "grokdemo1",
+  "version": "0.1.0",
+  "description": "Demo project for Grok AI coding assistant",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "demo": "node demo.js"
+  },
+  "keywords": [
+    "grok",
+    "xai",
+    "demo"
+  ],
+  "author": "danduniver",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {},
+  "devDependencies": {}
+}

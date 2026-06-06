@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grokdemo1 • Grok Demo Project</title>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --fg: #f0f0f0;
+      --accent: #00d4ff;
+      --card: #1a1a1a;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+    }
+    header {
+      background: #111;
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid #222;
+    }
+    h1 { margin: 0 0 .5rem; font-size: 2.5rem; }
+    .tag { color: var(--accent); font-size: .9rem; letter-spacing: 2px; }
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .card h3 { margin-top: 0; color: var(--accent); }
+    button {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: .6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: .25rem .5rem .25rem 0;
+    }
+    button:hover { filter: brightness(1.1); }
+    .output {
+      background: #111;
+      border: 1px solid #333;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: ui-monospace, monospace;
+      white-space: pre-wrap;
+      min-height: 80px;
+      margin-top: .75rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+      font-size: .85rem;
+    }
+    .status { font-size: .8rem; color: #0f0; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="tag">xAI GROK 4.3 DEMO</div>
+    <h1>grokdemo1</h1>
+    <p>Interactive sandbox for the Grok coding assistant</p>
+  </header>
+
+  <main>
+    <p>
+      This project was scaffolded by Grok. Use the Grok CLI/TUI inside this folder
+      to add real features, refactor, review code, or build GitHub-integrated workflows.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>🧠 Simulate Grok Task</h3>
+        <p>Run a "Grok action" locally in the browser (demo only).</p>
+        <button onclick="runDemo('refactor')">Refactor Sample</button>
+        <button onclick="runDemo('review')">Code Review</button>
+        <button onclick="runDemo('scaffold')">Scaffold Feature</button>
+        <div id="demo-output" class="output">Click a button above to see simulated Grok output...</div>
+      </div>
+
+      <div class="card">
+        <h3>🚀 Project Info</h3>
+        <p><strong>Repo:</strong> <a href="https://github.com/danduniver/grokdemo1" target="_blank" style="color:var(--accent)">danduniver/grokdemo1</a></p>
+        <p><strong>Local path:</strong><br><code>C:\Users\dandu\OneDrive\Desktop\grokdemo1</code></p>
+        <p class="status">● Project ready — open with <code>grok</code> in this dir</p>
+        <button onclick="showProjectStructure()">Show Expected Structure</button>
+      </div>
+
+      <div class="card">
+        <h3>🐍 Python Demo</h3>
+        <p>Run <code>python demo.py</code> (or <code>py demo.py</code>) from the project root.</p>
+        <button onclick="runPythonDemo()">Run Python Demo (simulated)</button>
+        <div id="python-output" class="output">Python demo output will appear here.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 1.5rem;">
+      <h3>What would you like to build?</h3>
+      <p>Tell Grok in the CLI: "add a real chat demo using xAI API", "create a todo app", "implement a FastAPI backend", etc.</p>
+      <p><strong>Current capabilities demonstrated:</strong> project init, GitHub repo creation, file scaffolding, AGENTS.md rules, multi-file coordination.</p>
+    </div>
+  </main>
+
+  <footer>
+    Made with Grok • <a href="https://github.com/danduniver/grokdemo1" target="_blank">View on GitHub</a>
+  </footer>
+
+  <script>
+    function runDemo(type) {
+      const out = document.getElementById('demo-output');
+      let text = '';
+      switch (type) {
+        case 'refactor':
+          text = 'Grok: Refactored sample function.\n- Extracted helper greetUser()\n- Added JSDoc\n- Improved readability (was 12 lines \u2192 9 lines)\n\nResult: cleaner, documented code ready to commit.';
+          break;
+        case 'review':
+          text = 'Grok Code Review:\n\u2713 No security issues found\n\u2713 Good error handling\n! Suggestion: add unit tests for edge cases\n! Consider extracting constants\nOverall: LGTM with minor improvements.';
+          break;
+        case 'scaffold':
+          text = 'Grok: Scaffolded new feature "user-profile".\nCreated:\n  - src/components/UserProfile.jsx\n  - src/hooks/useUser.js\n  - tests/UserProfile.test.js\nUpdated README with usage notes.\n\nRun `npm test` to verify.';
+          break;
+      }
+      out.textContent = text;
+    }
+
+    function showProjectStructure() {
+      const out = document.getElementById('demo-output');
+      out.textContent = `grokdemo1/\n├── README.md\n├── AGENTS.md\n├── .gitignore\n├── package.json\n├── index.html\n├── index.js\n└── demo.py`;
+    }
+
+    function runPythonDemo() {
+      const out = document.getElementById('python-output');
+      out.textContent = `> python demo.py\n\n=== GrokDemo1 Python Demo ===\nHello from grokdemo1!\nGrok is ready to help build amazing things.\nProject root detected: OK\nSimulated task completed in 0.042s\n\nDone. (In real terminal this would execute the actual script.)`;
+    }
+
+    // Keyboard hint
+    console.log('%c[grokdemo1] Tip: Open this folder with the Grok TUI for full AI-assisted development.', 'color:#555');
+  </script>
+</body>
+</html>
